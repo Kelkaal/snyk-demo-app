@@ -1,43 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
-
 metadata:
   name: snyk-demo-app
   labels:
     app: snyk-demo-app
-
 spec:
   replicas: 1
-
   selector:
     matchLabels:
       app: snyk-demo-app
-
   template:
     metadata:
       labels:
         app: snyk-demo-app
-
     spec:
       containers:
         - name: snyk-demo-app
           image: snyk-demo-app:latest
-
           ports:
             - containerPort: 3000
-
-          resources:
-            requests:
-              memory: "64Mi"
-              cpu: "250m"
-
-            limits:
-              memory: "128Mi"
-              cpu: "500m"
-
           securityContext:
-            privileged: false
-            readOnlyRootFilesystem: true
-            runAsNonRoot: true
-            runAsUser: 1000
-            allowPrivilegeEscalation: false
+            privileged: true
+            runAsUser: 0
+            allowPrivilegeEscalation: true
